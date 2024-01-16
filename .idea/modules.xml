@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/JAPJC_Export.iml" filepath="$PROJECT_DIR$/JAPJC_Export.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Source/Source.iml" filepath="$PROJECT_DIR$/Source/Source.iml" />
     </modules>
   </component>
 </project>
