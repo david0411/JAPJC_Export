@@ -1,6 +1,6 @@
 import datetime
 
-from DBConnection_AWS import DBConnection_AWS
+from Source.DBConnection_AWS import DBConnection_AWS
 import xlsxwriter
 
 if __name__ == '__main__':

@@ -38,34 +38,6 @@ class DBConnection_AWS:
         self.sql_pools = "SELECT 場次, 投注額時間, WIN, PLA FROM JAPJC_JCPOOL WHERE 日期 = %s"
         self.sql_odds = "SELECT 場次, 賠率時間, 馬號, 獨贏, 位置 FROM JAPJC_JCODDS WHERE 日期 = %s"
 
-    def get_horse_list(self):
-        self.c.execute(self.sql_horse_list)
-        return [item[0] for item in self.c.fetchall()]
-
-    def get_first_horse_record_date(self, target_horse_id):
-        self.c.execute(self.sql_first_horse_record_date, target_horse_id)
-        return self.c.fetchone()[0]
-
-    def get_last_horse_record_date(self, target_horse_id):
-        self.c.execute(self.sql_last_horse_record_date, target_horse_id)
-        return self.c.fetchone()[0]
-
-    def get_first_fixture(self):
-        self.c.execute(self.sql_first_fixture)
-        return self.c.fetchone()[0]
-
-    def get_last_fixture(self):
-        self.c.execute(self.sql_last_fixture)
-        return self.c.fetchone()[0]
-
-    def get_first_race_result_date(self):
-        self.c.execute(self.sql_first_race_result_date)
-        return self.c.fetchone()[0]
-
-    def get_last_race_result_date(self):
-        self.c.execute(self.sql_last_race_result_date)
-        return self.c.fetchone()[0]
-
     def get_prev_rd(self):
         self.c.execute(self.sql_prev_rd, [datetime.now()])
         return self.c.fetchone()

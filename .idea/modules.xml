@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/venv/venv.iml" filepath="$PROJECT_DIR$/venv/venv.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/JAPJC_Export.iml" filepath="$PROJECT_DIR$/.idea/JAPJC_Export.iml" />
     </modules>
   </component>
 </project>
