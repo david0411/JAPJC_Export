@@ -1,4 +1,5 @@
 import datetime
+
 from DBConnection_AWS import DBConnection_AWS
 import xlsxwriter
 
@@ -9,6 +10,7 @@ if __name__ == '__main__':
     no_of_race = db_connection.get_race_num()
     result_pool = db_connection.get_pools(next_rd_date)
     result_odds = db_connection.get_odds(next_rd_date)
+    time_list = [datetime.datetime.strptime('21:00', '%H:%M'),]
     # print(result_pool)
     # Create a workbook and add a worksheet.
     workbook = xlsxwriter.Workbook('JAPJC_Export_' + str(next_rd_date.strftime('%Y%m%d')) + '.xlsx')
