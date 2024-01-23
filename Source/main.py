@@ -43,9 +43,9 @@ if __name__ == '__main__':
                     sublist[1].time() == item.time()) and (sublist[0] == i + 1)])
             target_pool_pla.append([sublist[3] for sublist in result_pool if (
                     sublist[1].time() == item.time()) and (sublist[0] == i + 1)])
-            target_odds_win.append([[sublist[2],sublist[3]] for sublist in result_odds if (
+            target_odds_win.append([[sublist[2], sublist[3]] for sublist in result_odds if (
                     sublist[1].time() == item.time()) and (sublist[0] == i + 1)])
-            target_odds_pla.append([[sublist[2],sublist[4]] for sublist in result_odds if (
+            target_odds_pla.append([[sublist[2], sublist[4]] for sublist in result_odds if (
                     sublist[1].time() == item.time()) and (sublist[0] == i + 1)])
         # Write Pool
         for val in target_pool_win:
