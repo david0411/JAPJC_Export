@@ -28,14 +28,14 @@ if __name__ == '__main__':
         target_pool_pla = []
         target_odds_win = []
         target_odds_pla = []
-        row_pool_win = 1
-        col_pool_win = 4
-        row_pool_pla = 1
-        col_pool_pla = 18
-        row_odds_win = 3
-        col_odds_win = 4
-        row_odds_pla = 3
-        col_odds_pla = 18
+        row_pool_win = 0
+        col_pool_win = 0
+        row_pool_pla = 0
+        col_pool_pla = 12
+        row_odds_win = 2
+        col_odds_win = 0
+        row_odds_pla = 2
+        col_odds_pla = 12
         worksheet = workbook.add_worksheet('R' + str(i + 1))
         # Filter data
         for item in time_list:
