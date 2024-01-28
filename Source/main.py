@@ -1,26 +1,38 @@
-import datetime
+import datetime as dt
 from Source.DBConnection_AWS import DBConnection_AWS
 import xlsxwriter
 
 if __name__ == '__main__':
     db_connection = DBConnection_AWS()
     next_rd_date, *temp = db_connection.get_next_rd()
-    no_of_race = db_connection.get_race_num()
-    result_pool = db_connection.get_pools(next_rd_date)
-    result_odds = db_connection.get_odds(next_rd_date)
-    time_list = [datetime.datetime.strptime('20:59', '%H:%M'),
-                 datetime.datetime.strptime('21:59', '%H:%M'),
-                 datetime.datetime.strptime('22:59', '%H:%M'),
-                 datetime.datetime.strptime('23:59', '%H:%M'),
-                 datetime.datetime.strptime('00:59', '%H:%M'),
-                 datetime.datetime.strptime('01:59', '%H:%M'),
-                 datetime.datetime.strptime('02:59', '%H:%M'),
-                 datetime.datetime.strptime('03:59', '%H:%M'),
-                 datetime.datetime.strptime('04:59', '%H:%M'),
-                 datetime.datetime.strptime('05:59', '%H:%M'),
-                 datetime.datetime.strptime('06:59', '%H:%M')
-                 ]
-
+    # no_of_race = db_connection.get_race_num(next_rd_date)
+    # result_pool = db_connection.get_pools(next_rd_date)
+    # result_odds = db_connection.get_odds(next_rd_date)
+    no_of_race = db_connection.get_race_num('2024-01-24')
+    result_pool = db_connection.get_pools('2024-01-24')
+    result_odds = db_connection.get_odds('2024-01-24')
+    # time_list = [dt.datetime.combine(next_rd_date + dt.timedelta(days=-1), dt.datetime.strptime('21:00', '%H:%M').time()),
+    #              dt.datetime.combine(next_rd_date + dt.timedelta(days=-1), dt.datetime.strptime('22:00', '%H:%M').time()),
+    #              dt.datetime.combine(next_rd_date + dt.timedelta(days=-1), dt.datetime.strptime('23:00', '%H:%M').time()),
+    #              dt.datetime.combine(next_rd_date, dt.datetime.strptime('00:00', '%H:%M').time()),
+    #              dt.datetime.combine(next_rd_date, dt.datetime.strptime('01:00', '%H:%M').time()),
+    #              dt.datetime.combine(next_rd_date, dt.datetime.strptime('02:00', '%H:%M').time()),
+    #              dt.datetime.combine(next_rd_date, dt.datetime.strptime('03:00', '%H:%M').time()),
+    #              dt.datetime.combine(next_rd_date, dt.datetime.strptime('04:00', '%H:%M').time()),
+    #              dt.datetime.combine(next_rd_date, dt.datetime.strptime('05:00', '%H:%M').time()),
+    #              dt.datetime.combine(next_rd_date, dt.datetime.strptime('06:00', '%H:%M').time()),
+    #              dt.datetime.combine(next_rd_date, dt.datetime.strptime('07:00', '%H:%M').time())]
+    time_list = [dt.datetime.combine(dt.date(2024, 1, 24) + dt.timedelta(days=-1), dt.datetime.strptime('21:00', '%H:%M').time()),
+                 dt.datetime.combine(dt.date(2024, 1, 24) + dt.timedelta(days=-1), dt.datetime.strptime('22:00', '%H:%M').time()),
+                 dt.datetime.combine(dt.date(2024, 1, 24) + dt.timedelta(days=-1), dt.datetime.strptime('23:00', '%H:%M').time()),
+                 dt.datetime.combine(dt.date(2024, 1, 24), dt.datetime.strptime('00:00', '%H:%M').time()),
+                 dt.datetime.combine(dt.date(2024, 1, 24), dt.datetime.strptime('01:00', '%H:%M').time()),
+                 dt.datetime.combine(dt.date(2024, 1, 24), dt.datetime.strptime('02:00', '%H:%M').time()),
+                 dt.datetime.combine(dt.date(2024, 1, 24), dt.datetime.strptime('03:00', '%H:%M').time()),
+                 dt.datetime.combine(dt.date(2024, 1, 24), dt.datetime.strptime('04:00', '%H:%M').time()),
+                 dt.datetime.combine(dt.date(2024, 1, 24), dt.datetime.strptime('05:00', '%H:%M').time()),
+                 dt.datetime.combine(dt.date(2024, 1, 24), dt.datetime.strptime('06:00', '%H:%M').time()),
+                 dt.datetime.combine(dt.date(2024, 1, 24), dt.datetime.strptime('07:00', '%H:%M').time())]
     # Create a workbook and add a worksheet.
     workbook = xlsxwriter.Workbook('JAPJC_Export_' + str(next_rd_date.strftime('%Y%m%d')) + '.xlsx')
     for i in range(no_of_race):
@@ -40,13 +52,13 @@ if __name__ == '__main__':
         # Filter data
         for item in time_list:
             target_pool_win.append([sublist[2] for sublist in result_pool if (
-                    sublist[1].time() == item.time()) and (sublist[0] == i + 1)])
+                min(sublist[1].time(), key=lambda x: abs(x - item.time()))) and (sublist[0] == i + 1)])
             target_pool_pla.append([sublist[3] for sublist in result_pool if (
-                    sublist[1].time() == item.time()) and (sublist[0] == i + 1)])
+                min(sublist[1].time(), key=lambda x: abs(x - item.time()))) and (sublist[0] == i + 1)])
             target_odds_win.append([[sublist[2], sublist[3]] for sublist in result_odds if (
-                    sublist[1].time() == item.time()) and (sublist[0] == i + 1)])
+                min(sublist[1].time(), key=lambda x: abs(x - item.time()))) and (sublist[0] == i + 1)])
             target_odds_pla.append([[sublist[2], sublist[4]] for sublist in result_odds if (
-                    sublist[1].time() == item.time()) and (sublist[0] == i + 1)])
+                min(sublist[1].time(), key=lambda x: abs(x - item.time()))) and (sublist[0] == i + 1)])
         # Write Pool
         for val in target_pool_win:
             if len(val) != 0:
