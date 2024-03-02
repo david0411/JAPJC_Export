@@ -4,19 +4,28 @@ import xlsxwriter
 from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
 from DBConnection_AWS import DBConnection_AWS
+from sys import platform
 
 
 def upload_file(name):
-    gauth = GoogleAuth()
-    gauth.service_account_filename = 'client_secrets.json'
-    gauth.LoadCredentialsFile("mycreds.txt")
+    if platform == "linux" or platform == "linux2":
+        gauth = GoogleAuth(settings_file='/home/ubuntu/Export/settings.yaml')
+        gauth.service_account_filename = '/home/ubuntu/Export/client_secrets.json'
+        gauth.LoadCredentialsFile("/home/ubuntu/Export/mycreds.txt")
+    else:
+        gauth = GoogleAuth()
+        gauth.service_account_filename = 'client_secrets.json'
+        gauth.LoadCredentialsFile("mycreds.txt")
     if gauth.credentials is None:
         gauth.LocalWebserverAuth()
     elif gauth.access_token_expired:
         gauth.Refresh()
     else:
         gauth.Authorize()
-    gauth.SaveCredentialsFile("mycreds.txt")
+    if platform == "linux" or platform == "linux2":
+        gauth.SaveCredentialsFile("/home/ubuntu/Export/mycreds.txt")
+    else:
+        gauth.SaveCredentialsFile("mycreds.txt")
     drive = GoogleDrive(gauth)
     folder_id = ["1EoJUJsGIBWMTXa03UguwUS4UAS-NkeHH"]
     try:
