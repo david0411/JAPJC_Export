@@ -56,7 +56,7 @@ if __name__ == '__main__':
         dt.datetime.combine(next_rd_date, dt.datetime.strptime('06:00', '%H:%M').time()),
         dt.datetime.combine(next_rd_date, dt.datetime.strptime('07:00', '%H:%M').time())]
     # Create a workbook and add a worksheet.
-    file_name = 'JAPJC_Export_' + str(next_rd_date.strftime('%Y%m%d')) + '.xlsx'
+    file_name = 'JAPJC_Export_' + str(next_rd_date.strftime('%Y%m%d')) + '_test.xlsx'
     workbook = xlsxwriter.Workbook(file_name)
     for i in range(no_of_race):
         target_pool_win = []
