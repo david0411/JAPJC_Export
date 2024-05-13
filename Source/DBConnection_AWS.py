@@ -7,7 +7,7 @@ class DBConnection_AWS:
         try:
             self.conn = (mysql.connector.
                          connect(user='admin', password='password',
-                                 host='fsse2305-davidcheng-db.cbwrtddcgbnj.ap-southeast-1.rds.amazonaws.com',
+                                 host='davaliddb.cxac8ueq2wdq.ap-southeast-1.rds.amazonaws.com',
                                  database='JAPJC'))
             self.conn.time_zone = '+08:00'
             self.c = self.conn.cursor(buffered=True)
